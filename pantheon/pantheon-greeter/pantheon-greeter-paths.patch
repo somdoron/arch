@@ -1,0 +1,8 @@
+diff -rupN pantheon-greeter.orig/CMakeLists.txt pantheon-greeter/CMakeLists.txt
+--- pantheon-greeter.orig/CMakeLists.txt	2016-05-06 10:51:40.257595927 +0200
++++ pantheon-greeter/CMakeLists.txt	2016-05-06 10:51:47.284064288 +0200
+ 
+@@ -66,2 +66,2 @@ target_link_libraries(pantheon-greeter m)
+ 
+-install (TARGETS pantheon-greeter RUNTIME DESTINATION sbin)
++install (TARGETS pantheon-greeter RUNTIME DESTINATION bin)

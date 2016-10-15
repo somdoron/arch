@@ -1,0 +1,52 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+# Contributor: Veeti Paananen <veeti.paananen@rojekti.fi>
+# Contributor: fresh24 <pascher.christian@gmail.com>
+
+pkgbase=elementary-theme-loki
+pkgname=('elementary-theme-loki' 'plank-theme-pantheon-loki')
+pkgver=r702
+pkgrel=1
+arch=('any')
+url='https://launchpad.net/egtk'
+license=('GPL3')
+groups=('pantheon-loki')
+makedepends=('bzr')
+source=('elementary-theme::bzr+lp:egtk/5.x')
+sha256sums=('SKIP')
+
+pkgver() {
+  cd elementary-theme
+
+  echo "r$(bzr revno)"
+}
+
+package_elementary-theme-loki() {
+  pkgdesc='elementary theme'
+  depends=('gtk-engine-murrine')
+  optdepends=('elementary-icon-theme')
+  provides=('elementary-theme')
+  conflicts=('elementary-theme')
+
+  cd elementary-theme
+
+  mkdir -p "${pkgdir}"/usr/share/themes/elementary
+  cp -dr --no-preserve='ownership' gtk-2.0 gtk-3.0 index.theme "${pkgdir}"/usr/share/themes/elementary/
+
+# Fix permissions
+  find "${pkgdir}" -type d -exec chmod 755 {} +
+  find "${pkgdir}" -type f -exec chmod 644 {} +
+}
+
+package_plank-theme-pantheon-loki() {
+  pkgdesc='Pantheon Plank theme'
+  depends=('plank')
+  provides=('plank-theme-pantheon')
+  conflicts=('plank-theme-pantheon')
+
+  cd elementary-theme
+
+  install -dm 755 "${pkgdir}"/usr/share/plank/themes/Pantheon
+  install -m 644 plank/dock.theme "${pkgdir}"/usr/share/plank/themes/Pantheon/
+}
+
+# vim: ts=2 sw=2 et:
